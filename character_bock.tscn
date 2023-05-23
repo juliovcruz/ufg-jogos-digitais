@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://vefkrs7v882h"]
+
+[ext_resource type="Script" path="res://character_block.gd" id="1_2b0xa"]
+[ext_resource type="Texture2D" uid="uid://x4slmo1qohb5" path="res://sprites/diamond_block.png" id="2_j6k1l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_biajv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j6k1l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqxi"]
+size = Vector2(88.5, 85)
+
+[node name="character_block" type="CharacterBody2D"]
+position = Vector2(1, 1)
+script = ExtResource("1_2b0xa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_biajv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.75, 19)
+shape = SubResource("RectangleShape2D_5hqxi")
