@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://chmldvapi2mug"]
+
+[ext_resource type="Script" path="res://block.gd" id="1_dg7dk"]
+[ext_resource type="Texture2D" uid="uid://dct2t24i1xpxw" path="res://sprites/sprite_blue_block.png" id="2_oe8mj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_biajv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oe8mj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqxi"]
+size = Vector2(126, 127)
+
+[node name="block" type="CharacterBody2D"]
+safe_margin = 0.09
+script = ExtResource("1_dg7dk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+scale = Vector2(0.99, 0.99)
+sprite_frames = SubResource("SpriteFrames_biajv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5hqxi")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+target_position = Vector2(135, 2.08165e-12)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-135, 2.08165e-12)
+
+[node name="RayCastTop" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, -100)
+
+[node name="RayCastBottom" type="RayCast2D" parent="."]
+target_position = Vector2(2.08165e-12, 100)
