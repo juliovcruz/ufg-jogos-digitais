@@ -6,9 +6,12 @@ class_name Block
 @onready var rayCastTop = $RayCastTop
 @onready var rayCastBottom = $RayCastBottom
 
-const SPEED = 100 # Velocidade do bloco
+@onready var player = get_node("res://player.gd")
+
+const SPEED = 200 # Velocidade do bloco
 const SIZE = 128 # Tamanho do bloco
 const HALF_SIZE = (Block.SIZE / 2) # Meta do bloco
+const TIME_TO_EXPLODE = 0.3
 
 # Possiveis spawns de X para os blocos
 var spawn_x = [ 
@@ -28,41 +31,121 @@ var spawn_x = [
 var can_push = true  # Indica se o bloco pode ser empurrado novamente
 var pushed_one_time = false # Indica se o bloco já foi empurrado pelo menos uma vez
 var last_direction_player # Indica a ultima direção que o player estava quando empurrou o bloco pela última vez
-var maxX = position.x # Indica o X máximo que o bloco deve alcançar após o "empurrão"
-var minX = position.x # Indica o X mínimo que o bloco deve alcançar após o "empurrão"
+var maxX = 1280 # Indica o X máximo que o bloco deve alcançar após o "empurrão"
+var minX = 0 # Indica o X mínimo que o bloco deve alcançar após o "empurrão"
+var moveDelay = 3
+var moveElapsed = 0
 
-var blockUp: Block # Indica o bloco que está em cima
-var blockDown: Block # Indica o bloco que está em baixo
+
+var blockTop: Block # Indica o bloco que está em cima
+var blockBottom: Block # Indica o bloco que está em baixo
 var blockRight: Block # Indica o bloco que está do lado direito
 var blockLeft: Block # Indica o bloco que está do lado esquerdo
 var color: int = 1 # Indica a cor do bloco
+
+var exploding: bool = false # Indica se o bloco está explodindo
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var screen_size
 
 func _ready():
+	# Define a cor do bloco
+	color = randi_range(0, 1)
+	match color:
+		0:
+			$AnimatedSprite2D.play("red")
+		1: 
+			$AnimatedSprite2D.play("blue")
+		2: 
+			$AnimatedSprite2D.play("yellow")
+		3: 
+			$AnimatedSprite2D.play("green")
+
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
+	# Se o bloco estiver explodindo, ele não deve realizar nada
+	if exploding:
+		return
+	
+	# Lógica para explodir os blocos da direita e abaixo
+	verifyBlocksRight(self)
+	verifyBlocksBottom(self)
+	
+	# Verifica se algum bloco adjacente que seja da mesma cor
+	# está explodindo, caso positivo, este bloco deve explodir também 
+	if verifyIfNeedExplode():
+		explode()
+		return
+	
 	# Se o bloco chegar ao topo o jogador perde
 	if is_on_floor() and position.y < HALF_SIZE:
 		print("YOU LOSE")
-		free()
-	
+		explode()
+		return
+		
 	if pushed_one_time:
 		# Se a velocidade do bloco estiver zero ele continua se movendo até chegar no max X
 		if velocity.is_zero_approx():
 			velocity.x += SPEED * last_direction_player
 			move_and_slide()
 
-		position.x = clamp(position.x, minX, maxX)
-		if position.x >= maxX || position.x <= minX:
+		#position.x = clamp(position.x, minX, maxX)
+		
+		if position.x >= maxX -1:
+			position.x = maxX
 			can_push = true
+			
+		if position.x <= minX + 1:
+			position.x = minX
+			can_push = true
+	
+	# Lógica para o bloco conhecer os que seus adjacentes
+	
+	if rayCastBottom.is_colliding():
+		if rayCastBottom.get_collider() is Block:
+			var block = rayCastBottom.get_collider() as Block
+			blockBottom = block
+	else:
+		blockBottom = null
+		
+	if rayCastRight.is_colliding():
+		if rayCastRight.get_collider() is Block:
+			var block = rayCastRight.get_collider() as Block
+			blockRight = block
+	else:
+		blockRight = null
+		
+	if rayCastLeft.is_colliding():
+		if rayCastLeft.get_collider() is Block:
+			var block = rayCastLeft.get_collider() as Block
+			blockLeft = block
+	else:
+		blockLeft = null
+		
+	if rayCastTop.is_colliding():
+		if rayCastTop.get_collider() is Block:
+			var block = rayCastTop.get_collider() as Block
+			blockTop = block
+	else:
+		blockTop = null
 
-func _physics_process(delta):
+func _physics_process(delta):	
+	if exploding:
+		return
+	
+	if pushed_one_time:
+		position.x = clamp(position.x, minX, maxX)
+	
 	# Adicionando gravidade
 	if not is_on_floor():
 		velocity.y += gravity * delta
+	
+	if !can_push:
+		moveElapsed += delta
+		if moveElapsed >= moveDelay:
+			can_push = true
+			position.x = getNextX(position.x, last_direction_player)
 		
 	# TODO: lógica para caso o bloco caia sobre outro bloco que já está se movimentando
 	# o bloco deve finalizar o movimento, e em seguida o bloco que está caindo deve cair
@@ -75,7 +158,6 @@ func _physics_process(delta):
 		# Se o bloco atingir a cabeça do jogador, ele perde
 		if rayCastBottom.get_collider() is Player:
 			print("YOU LOSE")
-
 
 	move_and_slide()
 
@@ -94,7 +176,6 @@ func push(direction, playerX, playerY):
 	maxX = getNextX(position.x + SIZE/2 * direction, direction)
 	
 	# Empurrando para direita
-	#if position.x < maxX:	
 	if direction == 1:
 		if rayCastRight.is_colliding():
 			return
@@ -121,6 +202,70 @@ func getNextX(positionX, direction):
 				return spawn_x[i]
 	else:
 		for i in [9,8,7,6,5,4,3,2,1,0]:
-			print(spawn_x[i])
 			if spawn_x[i] < positionX:
 				return spawn_x[i]
+
+func verifyBlocksRight(block: Block, count: int = 1) -> bool:
+	if count == 3:
+		block.explodeEquals()
+		return true 
+
+	if block.blockRight == null:
+		return false
+	
+	if block.blockRight.color == color:
+		return verifyBlocksRight(block.blockRight, count + 1) 
+	else:
+		return false
+ 
+func verifyBlocksBottom(block: Block, count: int = 1) -> bool:
+	if count == 3:
+		block.explodeEquals()
+		return true 
+	
+	if block.blockBottom == null:
+		return false
+	
+	if block.blockBottom.color == color:
+		return verifyBlocksBottom(block.blockBottom, count + 1) 
+	else:
+		return false
+  
+
+func explodeEquals():
+	if blockTop != null && blockTop.color == color:
+		blockTop.explode()
+		
+	if blockBottom != null && blockBottom.color == color:
+		blockBottom.explode()
+	
+	if blockRight != null && blockRight.color == color:
+		blockRight.explode()
+	
+	if blockLeft != null && blockLeft.color == color:
+		blockLeft.explode()
+
+func explode():
+	if exploding:
+		return
+	exploding = true
+	
+	await get_tree().create_timer(TIME_TO_EXPLODE).timeout
+
+	queue_free()
+
+func verifyIfNeedExplode():
+	if !is_on_floor():
+		return false
+	
+	if blockRight != null && blockRight.exploding && blockRight.color == color:
+		return true
+	
+	if blockBottom != null && blockBottom.exploding && blockBottom.color == color:
+		return true
+	
+	if blockTop != null && blockTop.exploding && blockTop.color == color:
+		return true
+	
+	if blockLeft != null && blockLeft.exploding && blockLeft.color == color:
+		return true

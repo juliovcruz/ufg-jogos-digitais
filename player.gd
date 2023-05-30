@@ -4,6 +4,8 @@ class_name Player
 @onready var rayCastRight = $RayCastRight
 @onready var rayCastLeft = $RayCastLeft
 
+var SCORE = 1
+
 const SPEED = 500.0
 const JUMP_VELOCITY = -600.0
 

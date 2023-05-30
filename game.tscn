@@ -146,6 +146,8 @@ var spawn_x = [
 var count = 0
 var timer = 0
 
+var score = 0
+
 func _process(delta):
 	timer += delta
 	if timer > wait_time:
@@ -158,7 +160,12 @@ func _on_timeout():
 	var newBlock = block_scene.instantiate()
 	var x_value = spawn_x[randi() % spawn_x.size()]
 	newBlock.position = Vector2(x_value + 1, 0)
-	add_child(newBlock)	
+	add_child(newBlock)
+	newBlock.queue_free.connect(_increaseScore)
+
+func _increaseScore():
+	score += 1
+	print(score)
 
 "
 
