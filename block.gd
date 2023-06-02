@@ -8,6 +8,8 @@ class_name Block
 
 @onready var player = get_node("res://player.gd")
 
+signal plusScore
+
 const SPEED = 200 # Velocidade do bloco
 const SIZE = 128 # Tamanho do bloco
 const HALF_SIZE = (Block.SIZE / 2) # Meta do bloco
@@ -50,7 +52,7 @@ var screen_size
 
 func _ready():
 	# Define a cor do bloco
-	color = randi_range(0, 1)
+	color = randi_range(0, 0)
 	match color:
 		0:
 			$AnimatedSprite2D.play("red")
@@ -249,6 +251,10 @@ func explode():
 	if exploding:
 		return
 	exploding = true
+	
+	# Quando o bloco explode emite um sinal para aumentar a pontuação
+	# O paramêtro é a quantidade de pontos
+	plusScore.emit(2)
 	
 	await get_tree().create_timer(TIME_TO_EXPLODE).timeout
 
