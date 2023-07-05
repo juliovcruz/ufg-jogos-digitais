@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://brng2pm6iu5lq"]
+[gd_scene load_steps=4 format=3 uid="uid://brng2pm6iu5lq"]
 
 [ext_resource type="Texture2D" uid="uid://cvevx17vtwr4f" path="res://sprites/Principal.jpg" id="1_qpku2"]
 [ext_resource type="Texture2D" uid="uid://ketx2id70622" path="res://sprites/icon.jpg" id="2_h8edg"]
-[ext_resource type="Script" path="res://retry.gd" id="3_qcljm"]
-[ext_resource type="Script" path="res://Quit.gd" id="4_nrm8e"]
 
 [sub_resource type="GDScript" id="GDScript_styuc"]
 script/source = "extends Node2D
@@ -19,15 +17,19 @@ func _process(delta):
 	pass
 
 
-func _on_quit_pressed():
-	pass # Replace with function body.
+func _on_menu_pressed():
+	print(\"PRINTA\")
+
+
+func _on_play_pressed():
+	print(\"play\")
 "
 
 [node name="GameOver" type="Node2D"]
 script = SubResource("GDScript_styuc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(256, 152)
+position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.256, 0.212)
 texture = ExtResource("1_qpku2")
 centered = false
@@ -44,28 +46,26 @@ text = "GAME OVER"
 editable = false
 
 [node name="Play" type="Button" parent="Sprite2D"]
-offset_left = 875.0
-offset_top = 1094.34
-offset_right = 2125.0
-offset_bottom = 1283.34
+offset_left = 867.188
+offset_top = 1485.85
+offset_right = 2117.19
+offset_bottom = 1674.85
 theme_override_font_sizes/font_size = 50
 text = "JOGAR NOVAMENTE"
 icon = ExtResource("2_h8edg")
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("3_qcljm")
 
-[node name="Quit" type="Button" parent="Sprite2D"]
-offset_left = 875.0
-offset_top = 1396.0
-offset_right = 2125.0
-offset_bottom = 1585.0
+[node name="Menu" type="Button" parent="Sprite2D"]
+offset_left = 871.094
+offset_top = 1759.43
+offset_right = 2121.09
+offset_bottom = 1948.43
 theme_override_font_sizes/font_size = 50
-text = "QUIT"
+text = "MENU PRINCIPAL"
 icon = ExtResource("2_h8edg")
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("4_nrm8e")
 
-[connection signal="pressed" from="Sprite2D/Play" to="Sprite2D/Play" method="_on_pressed"]
-[connection signal="pressed" from="Sprite2D/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Sprite2D/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Sprite2D/Menu" to="." method="_on_menu_pressed"]

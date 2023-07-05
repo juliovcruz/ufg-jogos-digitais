@@ -36,10 +36,10 @@ virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 
 [node name="Play" type="Button" parent="Sprite2D"]
-offset_left = 1500.0
-offset_top = 755.556
-offset_right = 2400.0
-offset_bottom = 888.556
+offset_left = 1174.22
+offset_top = 741.667
+offset_right = 2074.22
+offset_bottom = 874.667
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_ljqsr")
 text = "PLAY"
@@ -50,10 +50,10 @@ expand_icon = true
 script = ExtResource("2_4rxr7")
 
 [node name="Quit" type="Button" parent="Sprite2D"]
-offset_left = 1500.0
-offset_top = 1067.0
-offset_right = 2405.0
-offset_bottom = 1200.0
+offset_left = 1181.25
+offset_top = 1058.33
+offset_right = 2086.25
+offset_bottom = 1191.33
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_vxe38")
 text = "QUIT"

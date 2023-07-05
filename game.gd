@@ -39,6 +39,14 @@ func _on_timer_timeout():
 	
 	# Conecta o sinal de newBlock com a função scorePlus
 	newBlock.plusScore.connect(scorePlus.bind())
+	newBlock.gameOver.connect(gameOver.bind())
 
 func scorePlus(point):
 	(scoreLabel as ScoreLabel).scorePlusInLabel(point)
+
+func gameOver():
+	get_tree().paused = true
+	
+	var new_scene = load("res://game_over.tscn")
+	var new_scene_instantiate = new_scene.instantiate()
+	add_child(new_scene_instantiate)

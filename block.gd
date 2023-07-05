@@ -9,6 +9,7 @@ class_name Block
 @onready var player = get_node("res://player.gd")
 
 signal plusScore
+signal gameOver
 
 const SPEED = 100 # Velocidade do bloco
 const SIZE = 128 # Tamanho do bloco
@@ -286,14 +287,4 @@ func game_over():
 	# Aqui você pode adicionar lógica para pausar o jogo, exibir uma tela de game over, reiniciar o jogo, etc.
 	print("GAME OVER")
 	
-	# Por exemplo, pausar o jogo e exibir uma mensagem de game over:
-	get_tree().paused = true
-	
-	var new_scene = load("res://game_over.tscn")
-	var new_scene_instantiate = new_scene.instantiate()
-	add_child(new_scene_instantiate)
-	
-	#Centralizar a nova cena
-	#new_scene_instantiate.position = Vector2(0, 0)
-	#new_scene_instantiate.rect_size = screen_size
-	new_scene_instantiate.set_z_index(2)
+	gameOver.emit()
