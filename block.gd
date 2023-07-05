@@ -10,30 +10,30 @@ class_name Block
 
 signal plusScore
 
-const SPEED = 200 # Velocidade do bloco
+const SPEED = 100 # Velocidade do bloco
 const SIZE = 128 # Tamanho do bloco
-const HALF_SIZE = (Block.SIZE / 2) # Meta do bloco
-const TIME_TO_EXPLODE = 0.3
+const HALF_SIZE = (Block.SIZE / 2) # Meta do bloco   tem bug
+const TIME_TO_EXPLODE = 0.4
 
 # Possiveis spawns de X para os blocos
 var spawn_x = [ 
-	HALF_SIZE, 
-	HALF_SIZE * 3,
-	HALF_SIZE * 5, 
-	HALF_SIZE * 7, 
-	HALF_SIZE * 9, 
-	HALF_SIZE * 11, 
-	HALF_SIZE * 13, 
-	HALF_SIZE * 15,
-	HALF_SIZE * 17,
-	HALF_SIZE * 19,
+	HALF_SIZE + 1, 
+	HALF_SIZE * 3 + 1,
+	HALF_SIZE * 5 + 1 , 
+	HALF_SIZE * 7 + 1, 
+	HALF_SIZE * 9 + 1, 
+	HALF_SIZE * 11 + 1, 
+	HALF_SIZE * 13 + 1, 
+	HALF_SIZE * 15 + 1,
+	HALF_SIZE * 17 + 1,
+	HALF_SIZE * 19 +1,
 	]
 
 # Variáveis auxiliares para movimentação
 var can_push = true  # Indica se o bloco pode ser empurrado novamente
 var pushed_one_time = false # Indica se o bloco já foi empurrado pelo menos uma vez
 var last_direction_player # Indica a ultima direção que o player estava quando empurrou o bloco pela última vez
-var maxX = 1280 # Indica o X máximo que o bloco deve alcançar após o "empurrão"
+var maxX = 128 # Indica o X máximo que o bloco deve alcançar após o "empurrão"
 var minX = 0 # Indica o X mínimo que o bloco deve alcançar após o "empurrão"
 var moveDelay = 3
 var moveElapsed = 0
@@ -52,16 +52,20 @@ var screen_size
 
 func _ready():
 	# Define a cor do bloco
-	color = randi_range(0, 0)
+	color = randi_range(0, 3)
 	match color:
 		0:
 			$AnimatedSprite2D.play("red")
 		1: 
 			$AnimatedSprite2D.play("blue")
 		2: 
-			$AnimatedSprite2D.play("yellow")
+			$AnimatedSprite2D.play("orange")
 		3: 
 			$AnimatedSprite2D.play("green")
+		4:
+			$AnimatedSprite2D.play("pink")
+		5:
+			$AnimatedSprite2D.play("purple")
 
 	screen_size = get_viewport_rect().size
 
@@ -83,7 +87,7 @@ func _process(delta):
 	# Se o bloco chegar ao topo o jogador perde
 	if is_on_floor() and position.y < HALF_SIZE:
 		print("YOU LOSE")
-		explode()
+		game_over()
 		return
 		
 	if pushed_one_time:
@@ -94,7 +98,7 @@ func _process(delta):
 
 		#position.x = clamp(position.x, minX, maxX)
 		
-		if position.x >= maxX -1:
+		if position.x >= maxX - 1:
 			position.x = maxX
 			can_push = true
 			
@@ -156,10 +160,12 @@ func _physics_process(delta):
 			var block = rayCastBottom.get_collider() as Block
 			if !block.can_push:
 				position.y -= 100
+				#position.x = float(lerp(position.x, maxX, SPEED)) #bug
 		
 		# Se o bloco atingir a cabeça do jogador, ele perde
 		if rayCastBottom.get_collider() is Player:
 			print("YOU LOSE")
+			game_over()
 
 	move_and_slide()
 
@@ -275,3 +281,19 @@ func verifyIfNeedExplode():
 	
 	if blockLeft != null && blockLeft.exploding && blockLeft.color == color:
 		return true
+		
+func game_over():
+	# Aqui você pode adicionar lógica para pausar o jogo, exibir uma tela de game over, reiniciar o jogo, etc.
+	print("GAME OVER")
+	
+	# Por exemplo, pausar o jogo e exibir uma mensagem de game over:
+	get_tree().paused = true
+	
+	var new_scene = load("res://game_over.tscn")
+	var new_scene_instantiate = new_scene.instantiate()
+	add_child(new_scene_instantiate)
+	
+	#Centralizar a nova cena
+	#new_scene_instantiate.position = Vector2(0, 0)
+	#new_scene_instantiate.rect_size = screen_size
+	new_scene_instantiate.set_z_index(2)

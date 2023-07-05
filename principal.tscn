@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://bcysnromjbtjy"]
+
+[ext_resource type="Texture2D" uid="uid://cvevx17vtwr4f" path="res://sprites/Principal.jpg" id="1_mx5c4"]
+[ext_resource type="Script" path="res://Play.gd" id="2_4rxr7"]
+[ext_resource type="Texture2D" uid="uid://ketx2id70622" path="res://sprites/icon.jpg" id="2_22ft8"]
+[ext_resource type="Script" path="res://Quit.gd" id="3_2ro61"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cwf2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljqsr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxe38"]
+
+[node name="Principal" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.426667, 0.36)
+texture = ExtResource("1_mx5c4")
+centered = false
+
+[node name="TextEdit" type="TextEdit" parent="Sprite2D"]
+offset_left = 150.0
+offset_top = 155.556
+offset_right = 2888.0
+offset_bottom = 399.556
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1cwf2")
+text = "BLOCK SHIFT - MANIPULATE THE DATA BLOCKS"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="Play" type="Button" parent="Sprite2D"]
+offset_left = 1500.0
+offset_top = 755.556
+offset_right = 2400.0
+offset_bottom = 888.556
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_ljqsr")
+text = "PLAY"
+icon = ExtResource("2_22ft8")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_4rxr7")
+
+[node name="Quit" type="Button" parent="Sprite2D"]
+offset_left = 1500.0
+offset_top = 1067.0
+offset_right = 2405.0
+offset_bottom = 1200.0
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_vxe38")
+text = "QUIT"
+icon = ExtResource("2_22ft8")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_2ro61")
+
+[connection signal="pressed" from="Sprite2D/Play" to="Sprite2D/Play" method="_on_pressed"]
+[connection signal="pressed" from="Sprite2D/Quit" to="Sprite2D/Quit" method="_on_pressed"]

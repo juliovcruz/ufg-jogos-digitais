@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://chmldvapi2mug"]
+[gd_scene load_steps=10 format=3 uid="uid://chmldvapi2mug"]
 
 [ext_resource type="Script" path="res://block.gd" id="1_dg7dk"]
-[ext_resource type="Texture2D" uid="uid://dct2t24i1xpxw" path="res://sprites/sprite_blue_block.png" id="2_oe8mj"]
-[ext_resource type="Texture2D" uid="uid://dvvtnt0i3bw6f" path="res://sprites/sprite_green_block.png" id="3_57tk3"]
-[ext_resource type="Texture2D" uid="uid://ds7idr73yt0v3" path="res://sprites/sprite_red_block.png" id="3_dxas7"]
-[ext_resource type="Texture2D" uid="uid://d3muegs1jjymg" path="res://sprites/sprite_yellow_block.png" id="5_ermyr"]
+[ext_resource type="Texture2D" uid="uid://dowgphqpdqry6" path="res://sprites/Verde.jpg" id="3_gj34q"]
+[ext_resource type="Texture2D" uid="uid://xvi2lwssg3o7" path="res://sprites/Azul.jpg" id="3_khx06"]
+[ext_resource type="Texture2D" uid="uid://ok1a1vms42hd" path="res://sprites/Rosa.jpg" id="5_pqkch"]
+[ext_resource type="Texture2D" uid="uid://q213kclpnxdx" path="res://sprites/Roxo.jpg" id="6_2iqqy"]
+[ext_resource type="Texture2D" uid="uid://bv1bkv747b6em" path="res://sprites/Vermelho.jpg" id="6_dagp6"]
+[ext_resource type="Texture2D" uid="uid://dmm2arrayrq1f" path="res://sprites/Laranja.jpg" id="7_7h2jm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_biajv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_oe8mj")
+"texture": ExtResource("3_khx06")
 }],
 "loop": true,
 "name": &"blue",
@@ -18,7 +20,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_57tk3")
+"texture": ExtResource("3_gj34q")
 }],
 "loop": true,
 "name": &"green",
@@ -26,23 +28,39 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_dxas7")
+"texture": ExtResource("7_7h2jm")
 }],
 "loop": true,
-"name": &"red",
+"name": &"orange",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_ermyr")
+"texture": ExtResource("5_pqkch")
 }],
 "loop": true,
-"name": &"yellow",
+"name": &"pink",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_2iqqy")
+}],
+"loop": true,
+"name": &"purple",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_dagp6")
+}],
+"loop": true,
+"name": &"red",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqxi"]
-size = Vector2(126, 127)
+size = Vector2(128, 128)
 
 [node name="block" type="CharacterBody2D"]
 visibility_layer = 2
@@ -53,20 +71,21 @@ script = ExtResource("1_dg7dk")
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.99, 0.99)
 sprite_frames = SubResource("SpriteFrames_biajv")
-animation = &"green"
+animation = &"purple"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5hqxi")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
-target_position = Vector2(135, 2.08165e-12)
+target_position = Vector2(72, -2.08165e-12)
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-135, 2.08165e-12)
+target_position = Vector2(-72, 0)
 
 [node name="RayCastTop" type="RayCast2D" parent="."]
-target_position = Vector2(2.08165e-12, -100)
+target_position = Vector2(0, -72)
 
 [node name="RayCastBottom" type="RayCast2D" parent="."]
-target_position = Vector2(2.08165e-12, 100)
+position = Vector2(0, -1)
+target_position = Vector2(0, 73)
