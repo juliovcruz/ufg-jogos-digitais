@@ -53,7 +53,7 @@ var screen_size
 
 func _ready():
 	# Define a cor do bloco
-	color = randi_range(0, 3)
+	color = randi_range(0, 2)
 	match color:
 		0:
 			$AnimatedSprite2D.play("red")

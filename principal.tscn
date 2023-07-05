@@ -1,9 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcysnromjbtjy"]
+[gd_scene load_steps=7 format=3 uid="uid://chrinluuxx0de"]
 
 [ext_resource type="Texture2D" uid="uid://cvevx17vtwr4f" path="res://sprites/Principal.jpg" id="1_mx5c4"]
-[ext_resource type="Script" path="res://Play.gd" id="2_4rxr7"]
 [ext_resource type="Texture2D" uid="uid://ketx2id70622" path="res://sprites/icon.jpg" id="2_22ft8"]
-[ext_resource type="Script" path="res://Quit.gd" id="3_2ro61"]
+
+[sub_resource type="GDScript" id="GDScript_bro6r"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func _on_play_pressed():
+	get_tree().change_scene_to_file(\"res://game.tscn\")
+	pass # Replace with function body.
+
+func _on_quit_pressed():
+	get_tree().quit()
+	pass # Replace with function body.
+"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cwf2"]
 
@@ -12,6 +32,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxe38"]
 
 [node name="Principal" type="Node2D"]
+script = SubResource("GDScript_bro6r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.426667, 0.36)
@@ -47,7 +68,6 @@ icon = ExtResource("2_22ft8")
 flat = true
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_4rxr7")
 
 [node name="Quit" type="Button" parent="Sprite2D"]
 offset_left = 1181.25
@@ -61,7 +81,6 @@ icon = ExtResource("2_22ft8")
 flat = true
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("3_2ro61")
 
-[connection signal="pressed" from="Sprite2D/Play" to="Sprite2D/Play" method="_on_pressed"]
-[connection signal="pressed" from="Sprite2D/Quit" to="Sprite2D/Quit" method="_on_pressed"]
+[connection signal="pressed" from="Sprite2D/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Sprite2D/Quit" to="." method="_on_quit_pressed"]
