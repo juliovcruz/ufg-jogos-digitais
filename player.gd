@@ -12,6 +12,8 @@ const JUMP_VELOCITY = -600.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var screen_size
 
+var canMove = true
+
 func _ready():
 	screen_size = get_viewport_rect().size
 
@@ -23,31 +25,32 @@ func _physics_process(delta):
 	# Gravidade
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		
-	## Altera a direção dos sprites
-	if Input.is_action_pressed("move_right"):
-		$AnimatedSprite2D.flip_h = false
-	elif Input.is_action_pressed("move_left"):
-		$AnimatedSprite2D.flip_h = true
 	
-	# Sprites de acordo com a movimentação e pulo
-	if Input.is_action_just_pressed("move_up") and is_on_floor():
-		$AnimatedSprite2D.play("jump")
-		velocity.y = JUMP_VELOCITY
-	elif Input.is_action_pressed("move_right") and is_on_floor():
-		$AnimatedSprite2D.play("move")
+	if canMove:
+		## Altera a direção dos sprites
+		if Input.is_action_pressed("move_right"):
+			$AnimatedSprite2D.flip_h = false
+		elif Input.is_action_pressed("move_left"):
+			$AnimatedSprite2D.flip_h = true
 		
-	elif Input.is_action_pressed("move_left") and is_on_floor():
-		$AnimatedSprite2D.play("move")
-	elif is_on_floor():
-		$AnimatedSprite2D.play("idle")
+		# Sprites de acordo com a movimentação e pulo
+		if Input.is_action_just_pressed("move_up") and is_on_floor():
+			$AnimatedSprite2D.play("jump")
+			velocity.y = JUMP_VELOCITY
+		elif Input.is_action_pressed("move_right") and is_on_floor():
+			$AnimatedSprite2D.play("move")
+			
+		elif Input.is_action_pressed("move_left") and is_on_floor():
+			$AnimatedSprite2D.play("move")
+		elif is_on_floor():
+			$AnimatedSprite2D.play("idle")
 
-	# Movimento para direita e esquerda
-	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		# Movimento para direita e esquerda
+		var direction = Input.get_axis("move_left", "move_right")
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	# Lógica de colisão com os blocos
 	if rayCastRight.is_colliding():
@@ -61,3 +64,6 @@ func _physics_process(delta):
 			block.push(-1, position.x, position.y)
 
 	move_and_slide()
+	
+func pausePlayer():
+	canMove = !canMove

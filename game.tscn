@@ -241,7 +241,7 @@ size = Vector2(20, 684)
 script = ExtResource("1_334th")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(640, 344)
+position = Vector2(640, 343)
 scale = Vector2(1.08, 1)
 sprite_frames = SubResource("SpriteFrames_0touo")
 autoplay = "default"
@@ -304,4 +304,12 @@ theme_override_font_sizes/font_size = 50
 text = "0 Pts"
 script = ExtResource("7_mknkk")
 
+[node name="Button" type="Button" parent="."]
+offset_left = 1213.0
+offset_top = 11.0
+offset_right = 1272.0
+offset_bottom = 59.0
+text = "( | | )"
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Button" to="." method="pauseGame"]

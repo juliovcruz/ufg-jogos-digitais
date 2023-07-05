@@ -6,6 +6,10 @@ extends Node2D
 var block_scene = preload("res://block.tscn")
 var halfBlockSize = (Block.SIZE / 2)
 
+var blocksAllowed = true
+
+signal pauseTheGameSignal
+
 var spawn_x = [
 	halfBlockSize, 
 	halfBlockSize * 3,
@@ -23,6 +27,9 @@ var timer = 0
 
 var score = 0
 
+func _ready():
+	pauseTheGameSignal.connect(get_node("Player").pausePlayer.bind())
+
 func _process(delta):
 	timer += delta
 	if timer > timerNode.wait_time:
@@ -32,6 +39,9 @@ func _process(delta):
 
 # Quando o timer chega ao fim, instancia um novo bloco
 func _on_timer_timeout():
+	if !blocksAllowed:
+		return
+	
 	var newBlock = block_scene.instantiate()
 	var x_value = spawn_x[randi() % spawn_x.size()]
 	newBlock.position = Vector2(x_value + 1, 0)
@@ -44,9 +54,20 @@ func _on_timer_timeout():
 func scorePlus(point):
 	(scoreLabel as ScoreLabel).scorePlusInLabel(point)
 
-func gameOver():
-	get_tree().paused = true
-	
+func gameOver():	
+	pauseTheGameSignal.emit()
+	blocksAllowed = false
 	var new_scene = load("res://game_over.tscn")
 	var new_scene_instantiate = new_scene.instantiate()
 	add_child(new_scene_instantiate)
+	
+	new_scene_instantiate.killGame.connect(killGame.bind())
+
+func killGame():
+	queue_free()
+
+func pauseGame():
+	pauseTheGameSignal.emit()
+	blocksAllowed = !blocksAllowed
+
+	
