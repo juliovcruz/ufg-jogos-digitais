@@ -88,4 +88,4 @@ target_position = Vector2(0, -72)
 
 [node name="RayCastBottom" type="RayCast2D" parent="."]
 position = Vector2(0, -1)
-target_position = Vector2(0, 73)
+target_position = Vector2(2.08165e-12, 115)

@@ -52,8 +52,14 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var screen_size
 
 func _ready():
+	# Bloco inicia sem colisão, até que o rayCastBottom colide com algo 
+	# -- para resolver o bug do bloco não cair por que colidiu com um bloco na diagonal
+	get_node("CollisionShape2D").disabled = true
+	
+	# set_collision_layer_value(spawn_x.find(position.x) + 1, true)
+	
 	# Define a cor do bloco
-	color = randi_range(0, 2)
+	color = randi_range(0, 1)
 	match color:
 		0:
 			$AnimatedSprite2D.play("red")
@@ -74,6 +80,14 @@ func _process(delta):
 	# Se o bloco estiver explodindo, ele não deve realizar nada
 	if exploding:
 		return
+	
+	# Habilitando colisão quando o rayCastBottom colide
+	if rayCastBottom.is_colliding():
+		get_node("CollisionShape2D").disabled = false
+	
+	# Desabilita colisão quando rayCastBottom não está colidindo, o bloco está parado e já chegou ao maxX
+	if !rayCastBottom.is_colliding() && velocity.is_zero_approx() && position.x == maxX:
+		get_node("CollisionShape2D").disabled = true
 	
 	# Lógica para explodir os blocos da direita e abaixo
 	verifyBlocksRight(self)
@@ -174,12 +188,16 @@ func _physics_process(delta):
 func push(direction, playerX, playerY):	
 	if !can_push || !is_on_floor() || rayCastTop.is_colliding():
 		return
+	
+	can_push = false
 		
 	# TODO:
 	# 1. Bug as vezes o bloco mesmo colidindo com o rayCast ele está deixando ser empurrado
 	
 	# Player está a cima do bloco
 	if (position.y - playerY) > SIZE:
+		# Revertando valor das variaveis para liberar o bloco para ser empurrado
+		can_push = true
 		return
 	
 	maxX = getNextX(position.x + SIZE/2 * direction, direction)
@@ -187,17 +205,20 @@ func push(direction, playerX, playerY):
 	# Empurrando para direita
 	if direction == 1:
 		if rayCastRight.is_colliding():
+			# Revertando valor da variavel para liberar o bloco para ser empurrado
+			can_push = true
 			return
 		minX = position.x
 	# Empurrando para esquerda
 	else:
 		if rayCastLeft.is_colliding():
+			# Revertando valor da variavel para liberar o bloco para ser empurrado
+			can_push = true
 			return
 		minX = maxX
 		maxX = position.x
 	
 	pushed_one_time = true
-	can_push = false
 	
 	last_direction_player = direction
 	velocity.x += SPEED * direction
