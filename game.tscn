@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://ct4v1je2a41a0"]
+[gd_scene load_steps=60 format=3 uid="uid://ct4v1je2a41a0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1qhyf"]
 [ext_resource type="Script" path="res://game.gd" id="1_334th"]
@@ -237,11 +237,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_si6tk"]
 size = Vector2(20, 684)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_phn3q"]
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_334th")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(640, 343)
+position = Vector2(648, 341)
 scale = Vector2(1.08, 1)
 sprite_frames = SubResource("SpriteFrames_0touo")
 autoplay = "default"
@@ -310,6 +312,30 @@ offset_top = 11.0
 offset_right = 1272.0
 offset_bottom = 59.0
 text = "( | | )"
+
+[node name="TouchScreenButtonLeft" type="TouchScreenButton" parent="."]
+position = Vector2(205, 587)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_phn3q")
+action = "move_left"
+
+[node name="TouchScreenButtonLeftJump" type="TouchScreenButton" parent="."]
+position = Vector2(204, 183)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_phn3q")
+action = "move_left_jump"
+
+[node name="TouchScreenButtonRight" type="TouchScreenButton" parent="."]
+position = Vector2(1078, 576)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_phn3q")
+action = "move_right"
+
+[node name="TouchScreenButtonRightJump" type="TouchScreenButton" parent="."]
+position = Vector2(1080, 174)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_phn3q")
+action = "move_right_jump"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Button" to="." method="pauseGame"]
