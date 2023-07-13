@@ -39,7 +39,6 @@ var minX = 0 # Indica o X mínimo que o bloco deve alcançar após o "empurrão"
 var moveDelay = 3
 var moveElapsed = 0
 
-
 var blockTop: Block # Indica o bloco que está em cima
 var blockBottom: Block # Indica o bloco que está em baixo
 var blockRight: Block # Indica o bloco que está do lado direito
@@ -82,7 +81,7 @@ func _process(delta):
 		return
 	
 	# Habilitando colisão quando o rayCastBottom colide
-	if rayCastBottom.is_colliding():
+	if rayCastBottom.is_colliding():		
 		get_node("CollisionShape2D").disabled = false
 	
 	# Desabilita colisão quando rayCastBottom não está colidindo, o bloco está parado e já chegou ao maxX
@@ -160,23 +159,23 @@ func _physics_process(delta):
 	
 	# Adicionando gravidade
 	if not is_on_floor():
-		velocity.y += gravity * delta
-	
+		if !rayCastBottom.is_colliding():
+			velocity.y += gravity * delta
+		elif rayCastBottom.get_collider() is Block:
+			var block = rayCastBottom.get_collider() as Block
+			if !block.can_push:
+				velocity.y = 0
+			else:
+				velocity.y += gravity * delta
+			
 	if !can_push:
 		moveElapsed += delta
 		if moveElapsed >= moveDelay:
 			can_push = true
 			position.x = getNextX(position.x, last_direction_player)
+	
 		
-	# TODO: lógica para caso o bloco caia sobre outro bloco que já está se movimentando
-	# o bloco deve finalizar o movimento, e em seguida o bloco que está caindo deve cair
 	if rayCastBottom.is_colliding():
-		if rayCastBottom.get_collider() is Block:
-			var block = rayCastBottom.get_collider() as Block
-			if !block.can_push:
-				position.y -= 100
-				#position.x = float(lerp(position.x, maxX, SPEED)) #bug
-		
 		# Se o bloco atingir a cabeça do jogador, ele perde
 		if rayCastBottom.get_collider() is Player:
 			print("YOU LOSE")
@@ -190,10 +189,7 @@ func push(direction, playerX, playerY):
 		return
 	
 	can_push = false
-		
-	# TODO:
-	# 1. Bug as vezes o bloco mesmo colidindo com o rayCast ele está deixando ser empurrado
-	
+
 	# Player está a cima do bloco
 	if (position.y - playerY) > SIZE:
 		# Revertando valor das variaveis para liberar o bloco para ser empurrado
