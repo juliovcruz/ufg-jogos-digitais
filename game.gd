@@ -70,5 +70,5 @@ func pauseGame():
 	pauseTheGameSignal.emit()
 	blocksAllowed = !blocksAllowed
 
-func _on_music_finished():
-	get_node("AudioStreamPlayer2D").play()
+func _on_music_background_1_finished():
+	get_node("MusicBackground1").play()

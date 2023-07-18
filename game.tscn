@@ -338,9 +338,10 @@ scale = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_phn3q")
 action = "move_right_jump"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="MusicBackground1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("55_cao2d")
 autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Button" to="." method="pauseGame"]
+[connection signal="finished" from="MusicBackground1" to="." method="_on_music_background_1_finished"]
