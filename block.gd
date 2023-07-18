@@ -6,6 +6,8 @@ class_name Block
 @onready var rayCastTop = $RayCastTop
 @onready var rayCastBottom = $RayCastBottom
 
+@onready var area2DBottom = $Area2DBottom
+
 @onready var player = get_node("res://player.gd")
 
 signal plusScore
@@ -159,14 +161,11 @@ func _physics_process(delta):
 	if not is_on_floor():
 		if !rayCastBottom.is_colliding():
 			velocity.y += gravity * delta
-		elif rayCastBottom.get_collider() is Block:
-			var block = rayCastBottom.get_collider() as Block
-			# Se o bloco que está colidindo com o rayCastBottom estiver em movimento
-			# então pausa o bloco no ar
-			if !block.can_push:
-				velocity.y = 0
-			else:
-				velocity.y += gravity * delta
+		
+		if hasBlockMovingInArea2DBottom():
+			velocity.y = 0
+		else:
+			velocity.y += gravity * delta
 			
 	if pushed_one_time:
 		position.x = clamp(position.x, minX, maxX)
@@ -185,12 +184,9 @@ func _physics_process(delta):
 			position.x = getNextX(position.x, last_direction_player)
 			moveElapsed = 0
 	
-	
-	if rayCastBottom.is_colliding():
-		# Se o bloco atingir a cabeça do jogador, ele perde
-		if rayCastBottom.get_collider() is Player:
-			print("YOU LOSE")
-			game_over()
+	if hasPlayerInArea2DBottom():
+		print("YOU LOSE")
+		game_over()
 
 	move_and_slide()
 
@@ -322,3 +318,18 @@ func game_over():
 	print("GAME OVER")
 	
 	gameOver.emit()
+
+func hasBlockMovingInArea2DBottom():
+	for bodie in area2DBottom.get_overlapping_bodies():
+		if bodie is Block:
+			var block = bodie as Block
+			return !block.can_push
+	
+	return false
+	
+func hasPlayerInArea2DBottom():
+	for bodie in area2DBottom.get_overlapping_bodies():
+		if bodie is Player:
+			return true
+	
+	return false
