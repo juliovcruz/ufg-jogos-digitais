@@ -86,6 +86,7 @@ func _process(delta):
 	
 	# Desabilita colisão quando rayCastBottom não está colidindo, o bloco está parado e já chegou ao maxX
 	if !rayCastBottom.is_colliding() && velocity.is_zero_approx() && position.x == maxX:
+		position.y += 2
 		get_node("CollisionShape2D").disabled = true
 	
 	# Lógica para explodir os blocos da direita e abaixo
