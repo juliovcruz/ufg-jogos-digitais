@@ -241,6 +241,9 @@ func verifyBlocksRight(block: Block, count: int = 1) -> bool:
 	if block.blockRight == null:
 		return false
 	
+	if !can_push:
+		return false
+	
 	if block.blockRight.color == color:
 		return verifyBlocksRight(block.blockRight, count + 1) 
 	else:
@@ -252,6 +255,9 @@ func verifyBlocksBottom(block: Block, count: int = 1) -> bool:
 		return true 
 	
 	if block.blockBottom == null:
+		return false
+		
+	if !can_push:
 		return false
 	
 	if block.blockBottom.color == color:
