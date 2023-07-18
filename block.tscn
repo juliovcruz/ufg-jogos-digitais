@@ -60,7 +60,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqxi"]
-size = Vector2(128, 128)
+size = Vector2(125, 125)
 
 [node name="block" type="CharacterBody2D"]
 visibility_layer = 2
@@ -74,7 +74,9 @@ sprite_frames = SubResource("SpriteFrames_biajv")
 animation = &"purple"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_5hqxi")
+one_way_collision_margin = 0.0
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
