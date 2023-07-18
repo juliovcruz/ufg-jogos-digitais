@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw14lsue37yk4"
-path="res://.godot/imported/ezgif.com-crop (3).png-83d9c1f0384b93a8ec2e397436ff3249.ctex"
+uid="uid://cduk0y8tnjgeu"
+path="res://.godot/imported/background_principal.png-cbc77990573a7d78fe4832bdf587c34f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/background/ezgif.com-crop (3).png"
-dest_files=["res://.godot/imported/ezgif.com-crop (3).png-83d9c1f0384b93a8ec2e397436ff3249.ctex"]
+source_file="res://sprites/background/background_principal.png"
+dest_files=["res://.godot/imported/background_principal.png-cbc77990573a7d78fe4832bdf587c34f.ctex"]
 
 [params]
 
