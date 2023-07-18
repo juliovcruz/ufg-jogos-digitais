@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ct4v1je2a41a0"]
+[gd_scene load_steps=62 format=3 uid="uid://ct4v1je2a41a0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1qhyf"]
 [ext_resource type="Script" path="res://game.gd" id="1_334th"]
@@ -240,6 +240,9 @@ size = Vector2(20, 684)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phn3q"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27dab"]
+size = Vector2(20, 15)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_334th")
 
@@ -333,9 +336,9 @@ shape = SubResource("RectangleShape2D_phn3q")
 action = "move_right"
 
 [node name="TouchScreenButtonRightJump" type="TouchScreenButton" parent="."]
-position = Vector2(1080, 174)
+position = Vector2(1080, 218)
 scale = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_phn3q")
+shape = SubResource("RectangleShape2D_27dab")
 action = "move_right_jump"
 
 [node name="MusicBackground1" type="AudioStreamPlayer2D" parent="."]
