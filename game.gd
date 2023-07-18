@@ -27,6 +27,8 @@ var timer = 0
 
 var score = 0
 
+var difficulty = 0
+
 func _ready():
 	pauseTheGameSignal.connect(get_node("Player").pausePlayer.bind())
 
@@ -52,7 +54,20 @@ func _on_timer_timeout():
 	newBlock.gameOver.connect(gameOver.bind())
 
 func scorePlus(point):
+	score += point
 	(scoreLabel as ScoreLabel).scorePlusInLabel(point)
+	
+	var TimerNode = get_node("Timer")
+	
+	if score > 10 && difficulty == 0:
+		TimerNode.wait_time = 2.25
+		difficulty = 1
+	elif score > 20 && difficulty == 1:
+		TimerNode.wait_time = 2
+		difficulty = 2
+	elif score > 30 && difficulty == 2:
+		TimerNode.wait_time = 1.5
+		difficulty = 3
 
 func gameOver():	
 	get_node("Button").set_visible(false)
