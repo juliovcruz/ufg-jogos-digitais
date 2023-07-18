@@ -70,6 +70,8 @@ func pauseGame():
 	pauseTheGameSignal.emit()
 	blocksAllowed = !blocksAllowed
 	
+	get_node("Button").set_visible(false)
+	
 	var new_scene = load("res://game_pause.tscn")
 	var new_scene_instantiate = new_scene.instantiate()
 	add_child(new_scene_instantiate)
@@ -79,6 +81,7 @@ func pauseGame():
 func _on_music_background_1_finished():
 	get_node("MusicBackground1").play()
 
-func unPauseGame():
+func unPauseGame():	
 	pauseTheGameSignal.emit()
 	blocksAllowed = !blocksAllowed
+	get_node("Button").set_visible(true)
