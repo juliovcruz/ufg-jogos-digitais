@@ -154,19 +154,21 @@ func _physics_process(delta):
 	if exploding:
 		return
 	
-	if pushed_one_time:
-		position.x = clamp(position.x, minX, maxX)
-	
 	# Adicionando gravidade
 	if not is_on_floor():
 		if !rayCastBottom.is_colliding():
 			velocity.y += gravity * delta
 		elif rayCastBottom.get_collider() is Block:
 			var block = rayCastBottom.get_collider() as Block
+			# Se o bloco que está colidindo com o rayCastBottom estiver em movimento
+			# então pausa o bloco no ar
 			if !block.can_push:
 				velocity.y = 0
 			else:
 				velocity.y += gravity * delta
+			
+	if pushed_one_time:
+		position.x = clamp(position.x, minX, maxX)
 			
 	if !can_push:
 		moveElapsed += delta
@@ -174,7 +176,7 @@ func _physics_process(delta):
 			can_push = true
 			position.x = getNextX(position.x, last_direction_player)
 	
-		
+	
 	if rayCastBottom.is_colliding():
 		# Se o bloco atingir a cabeça do jogador, ele perde
 		if rayCastBottom.get_collider() is Player:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://ct4v1je2a41a0"]
+[gd_scene load_steps=61 format=3 uid="uid://ct4v1je2a41a0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1qhyf"]
 [ext_resource type="Script" path="res://game.gd" id="1_334th"]
@@ -54,6 +54,7 @@
 [ext_resource type="Texture2D" uid="uid://bo44hiy4560jl" path="res://sprites/Corrida/ezgif.com-resize (4).png" id="46_kbpuu"]
 [ext_resource type="Texture2D" uid="uid://dm3n3aq0pxc3w" path="res://sprites/Salto/ezgif.com-resize (5).png" id="46_t6g41"]
 [ext_resource type="Texture2D" uid="uid://p8uu5xov1q0c" path="res://sprites/Corrida/ezgif.com-resize (5).png" id="47_vskvu"]
+[ext_resource type="AudioStream" uid="uid://bwplngfj02gwe" path="res://audio/game.mp3" id="55_cao2d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0touo"]
 animations = [{
@@ -336,6 +337,10 @@ position = Vector2(1080, 174)
 scale = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_phn3q")
 action = "move_right_jump"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("55_cao2d")
+autoplay = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Button" to="." method="pauseGame"]

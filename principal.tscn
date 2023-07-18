@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://chrinluuxx0de"]
+[gd_scene load_steps=8 format=3 uid="uid://chrinluuxx0de"]
 
 [ext_resource type="Texture2D" uid="uid://cvevx17vtwr4f" path="res://sprites/Principal.jpg" id="1_mx5c4"]
 [ext_resource type="Texture2D" uid="uid://ketx2id70622" path="res://sprites/icon.jpg" id="2_22ft8"]
+[ext_resource type="AudioStream" uid="uid://c5om4jnvwuum8" path="res://audio/menu_pause.ogg" id="3_rhosa"]
 
 [sub_resource type="GDScript" id="GDScript_bro6r"]
 script/source = "extends Node2D
@@ -23,6 +24,9 @@ func _on_play_pressed():
 func _on_quit_pressed():
 	get_tree().quit()
 	pass # Replace with function body.
+
+func _on_music_finished():
+	get_node(\"AudioStreamPlayer2D\").play()
 "
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cwf2"]
@@ -82,5 +86,10 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_rhosa")
+autoplay = true
+
 [connection signal="pressed" from="Sprite2D/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Sprite2D/Quit" to="." method="_on_quit_pressed"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_music_finished"]
