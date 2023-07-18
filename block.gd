@@ -48,6 +48,7 @@ var blockLeft: Block # Indica o bloco que está do lado esquerdo
 var color: int = 1 # Indica a cor do bloco
 
 var exploding: bool = false # Indica se o bloco está explodindo
+var solo_exploding: bool = false # Indica se o bloco está explodindo sozinho
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var screen_size
@@ -79,7 +80,7 @@ func _ready():
 
 func _process(delta):
 	# Se o bloco estiver explodindo, ele não deve realizar nada
-	if exploding:
+	if exploding || solo_exploding:
 		return
 	
 	# Habilitando colisão quando o rayCastBottom colide
@@ -185,8 +186,8 @@ func _physics_process(delta):
 			moveElapsed = 0
 	
 	if hasPlayerInArea2DBottom():
-		print("YOU LOSE")
 		game_over()
+		soloExplode()
 
 	move_and_slide()
 
@@ -203,7 +204,7 @@ func push(direction, playerX, playerY):
 		can_push = true
 		return
 	
-	maxX = getNextX(position.x + SIZE/2 * direction, direction)
+	var auxMaxX = getNextX(position.x + SIZE/2 * direction, direction)
 	
 	# Empurrando para direita
 	if direction == 1:
@@ -212,13 +213,14 @@ func push(direction, playerX, playerY):
 			can_push = true
 			return
 		minX = position.x
+		maxX = auxMaxX
 	# Empurrando para esquerda
 	else:
 		if rayCastLeft.is_colliding():
 			# Revertando valor da variavel para liberar o bloco para ser empurrado
 			can_push = true
 			return
-		minX = maxX
+		minX = auxMaxX
 		maxX = position.x
 	
 	pushed_one_time = true
@@ -237,6 +239,7 @@ func getNextX(positionX, direction):
 		for i in [9,8,7,6,5,4,3,2,1,0]:
 			if spawn_x[i] < positionX:
 				return spawn_x[i]
+	return positionX
 
 func verifyBlocksRight(block: Block, count: int = 1) -> bool:
 	if count == 3:
@@ -246,7 +249,7 @@ func verifyBlocksRight(block: Block, count: int = 1) -> bool:
 	if block.blockRight == null:
 		return false
 	
-	if !can_push:
+	if !canExplode():
 		return false
 	
 	if block.blockRight.color == color:
@@ -262,7 +265,7 @@ func verifyBlocksBottom(block: Block, count: int = 1) -> bool:
 	if block.blockBottom == null:
 		return false
 		
-	if !can_push:
+	if !canExplode():
 		return false
 	
 	if block.blockBottom.color == color:
@@ -285,9 +288,11 @@ func explodeEquals():
 		blockLeft.explode()
 
 func explode():
-	if exploding:
+	if exploding || solo_exploding:
 		return
 	exploding = true
+	
+	$AnimatedSprite2D.play("explosion")
 	
 	# Quando o bloco explode emite um sinal para aumentar a pontuação
 	# O paramêtro é a quantidade de pontos
@@ -333,3 +338,26 @@ func hasPlayerInArea2DBottom():
 			return true
 	
 	return false
+	
+
+func soloExplode():
+	if solo_exploding || exploding:
+		return
+	solo_exploding = true
+
+	$AnimatedSprite2D.play("explosion")
+
+	# Quando o bloco explode emite um sinal para aumentar a pontuação
+	# O paramêtro é a quantidade de pontos
+	plusScore.emit(2)
+
+	await get_tree().create_timer(TIME_TO_EXPLODE).timeout
+
+	queue_free()
+
+func canExplode():
+	if !can_push:
+		return false
+	if !is_on_floor():
+		return false
+	return true
