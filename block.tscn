@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://chmldvapi2mug"]
+[gd_scene load_steps=11 format=3 uid="uid://chmldvapi2mug"]
 
 [ext_resource type="Script" path="res://block.gd" id="1_dg7dk"]
 [ext_resource type="Texture2D" uid="uid://dowgphqpdqry6" path="res://sprites/Verde.jpg" id="3_gj34q"]
@@ -62,6 +62,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqxi"]
 size = Vector2(125, 125)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq1uj"]
+size = Vector2(23.6, 9)
+
 [node name="block" type="CharacterBody2D"]
 visibility_layer = 2
 safe_margin = 0.09
@@ -91,3 +94,10 @@ target_position = Vector2(0, -72)
 [node name="RayCastBottom" type="RayCast2D" parent="."]
 position = Vector2(0, -1)
 target_position = Vector2(2.08165e-12, 115)
+
+[node name="Area2DBottom" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DBottom"]
+position = Vector2(-1, 66)
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_sq1uj")

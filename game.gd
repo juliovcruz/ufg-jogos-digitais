@@ -55,6 +55,8 @@ func scorePlus(point):
 	(scoreLabel as ScoreLabel).scorePlusInLabel(point)
 
 func gameOver():	
+	get_node("Button").set_visible(false)
+	
 	pauseTheGameSignal.emit()
 	blocksAllowed = false
 	var new_scene = load("res://game_over.tscn")
