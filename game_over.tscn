@@ -50,24 +50,26 @@ editable = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Play" type="Button" parent="Sprite2D"]
-offset_left = 867.188
-offset_top = 1485.85
-offset_right = 2117.19
-offset_bottom = 1674.85
+offset_left = 886.719
+offset_top = 981.132
+offset_right = 2136.72
+offset_bottom = 1458.13
 theme_override_font_sizes/font_size = 50
 text = "JOGAR NOVAMENTE"
 icon = ExtResource("2_h8edg")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="Menu" type="Button" parent="Sprite2D"]
-offset_left = 871.094
-offset_top = 1759.43
-offset_right = 2121.09
-offset_bottom = 1948.43
+offset_left = 887.0
+offset_top = 1500.0
+offset_right = 2141.0
+offset_bottom = 1930.0
 theme_override_font_sizes/font_size = 50
 text = "MENU PRINCIPAL"
 icon = ExtResource("2_h8edg")
+flat = true
 icon_alignment = 1
 expand_icon = true
 

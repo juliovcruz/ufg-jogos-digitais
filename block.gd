@@ -293,6 +293,7 @@ func explode():
 		return
 	exploding = true
 	
+	$AnimatedSprite2D.play("expl")
 	# Quando o bloco explode emite um sinal para aumentar a pontuação
 	# O paramêtro é a quantidade de pontos
 	plusScore.emit(2)

@@ -60,35 +60,38 @@ editable = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Play" type="Button" parent="Sprite2D"]
-offset_left = 867.188
-offset_top = 1485.85
-offset_right = 2117.19
-offset_bottom = 1674.85
+offset_left = 863.0
+offset_top = 1316.0
+offset_right = 2125.0
+offset_bottom = 1632.0
 theme_override_font_sizes/font_size = 50
 text = "REINICIAR"
 icon = ExtResource("2_6rry3")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="Continue" type="Button" parent="Sprite2D"]
-offset_left = 871.094
-offset_top = 1268.87
-offset_right = 2121.1
-offset_bottom = 1457.87
+offset_left = 855.0
+offset_top = 939.0
+offset_right = 2128.0
+offset_bottom = 1312.0
 theme_override_font_sizes/font_size = 50
 text = "CONTINUAR"
 icon = ExtResource("2_6rry3")
+flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="Menu" type="Button" parent="Sprite2D"]
-offset_left = 871.094
-offset_top = 1759.43
-offset_right = 2121.09
-offset_bottom = 1948.43
+offset_left = 859.0
+offset_top = 1637.0
+offset_right = 2121.0
+offset_bottom = 1949.0
 theme_override_font_sizes/font_size = 50
 text = "MENU PRINCIPAL"
 icon = ExtResource("2_6rry3")
+flat = true
 icon_alignment = 1
 expand_icon = true
 

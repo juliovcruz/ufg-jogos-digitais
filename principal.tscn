@@ -61,10 +61,10 @@ virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 
 [node name="Play" type="Button" parent="Sprite2D"]
-offset_left = 1174.22
-offset_top = 741.667
-offset_right = 2074.22
-offset_bottom = 874.667
+offset_left = 1078.12
+offset_top = 636.111
+offset_right = 2320.12
+offset_bottom = 1072.11
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_ljqsr")
 text = "PLAY"
@@ -74,10 +74,10 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Quit" type="Button" parent="Sprite2D"]
-offset_left = 1181.25
-offset_top = 1058.33
-offset_right = 2086.25
-offset_bottom = 1191.33
+offset_left = 1089.84
+offset_top = 1175.0
+offset_right = 2310.84
+offset_bottom = 1608.0
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_vxe38")
 text = "QUIT"
