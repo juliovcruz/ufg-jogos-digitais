@@ -172,9 +172,17 @@ func _physics_process(delta):
 			
 	if !can_push:
 		moveElapsed += delta
+		
+		if velocity.is_zero_approx():
+			# Resolve o bug do bloco colidir com a diagonal inferior
+			position.y -= 0.2
+			velocity.x += SPEED * last_direction_player
+		
+		# Se o bloco não chegar ao nextX a tempo, ele é teletransportado
 		if moveElapsed >= moveDelay:
 			can_push = true
 			position.x = getNextX(position.x, last_direction_player)
+			moveElapsed = 0
 	
 	
 	if rayCastBottom.is_colliding():

@@ -60,11 +60,17 @@ func _physics_process(delta):
 		if rayCastRight.get_collider() is Block:
 			var block = rayCastRight.get_collider() as Block
 			block.push(1, position.x, position.y)
+	elif !velocity.is_zero_approx(): 
+		# Resolve bug do player não conseguir andar por que está colidindo com o bloco da diagonal inferior
+		position.y -= 0.2
 	
 	if rayCastLeft.is_colliding():
 		if rayCastLeft.get_collider() is Block:
 			var block = rayCastLeft.get_collider() as Block
 			block.push(-1, position.x, position.y)
+	elif !velocity.is_zero_approx(): 
+		# Resolve bug do player não conseguir andar por que está colidindo com o bloco da diagonal inferior
+		position.y -= 0.2
 
 	move_and_slide()
 	
