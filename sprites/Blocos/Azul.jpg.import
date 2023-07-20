@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3mubcautp7yj"
-path="res://.godot/imported/background_principal.png-1dc9be18cc94e19a77f2546e30c58984.ctex"
+uid="uid://xvi2lwssg3o7"
+path="res://.godot/imported/Azul.jpg-0830786e3086c31925be57aec04efee7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Background/background_principal.png"
-dest_files=["res://.godot/imported/background_principal.png-1dc9be18cc94e19a77f2546e30c58984.ctex"]
+source_file="res://sprites/Blocos/Azul.jpg"
+dest_files=["res://.godot/imported/Azul.jpg-0830786e3086c31925be57aec04efee7.ctex"]
 
 [params]
 

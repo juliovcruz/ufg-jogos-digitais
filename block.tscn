@@ -1,13 +1,13 @@
 [gd_scene load_steps=31 format=3 uid="uid://chmldvapi2mug"]
 
 [ext_resource type="Script" path="res://block.gd" id="1_dg7dk"]
-[ext_resource type="Texture2D" uid="uid://dowgphqpdqry6" path="res://sprites/Verde.jpg" id="3_gj34q"]
-[ext_resource type="Texture2D" uid="uid://xvi2lwssg3o7" path="res://sprites/Azul.jpg" id="3_khx06"]
+[ext_resource type="Texture2D" uid="uid://xvi2lwssg3o7" path="res://sprites/Blocos/Azul.jpg" id="2_vw6u0"]
 [ext_resource type="Texture2D" uid="uid://dr5gef3f21t1m" path="res://sprites/expl.png" id="3_uhnq6"]
-[ext_resource type="Texture2D" uid="uid://ok1a1vms42hd" path="res://sprites/Rosa.jpg" id="5_pqkch"]
-[ext_resource type="Texture2D" uid="uid://q213kclpnxdx" path="res://sprites/Roxo.jpg" id="6_2iqqy"]
-[ext_resource type="Texture2D" uid="uid://bv1bkv747b6em" path="res://sprites/Vermelho.jpg" id="6_dagp6"]
-[ext_resource type="Texture2D" uid="uid://dmm2arrayrq1f" path="res://sprites/Laranja.jpg" id="7_7h2jm"]
+[ext_resource type="Texture2D" uid="uid://dowgphqpdqry6" path="res://sprites/Blocos/Verde.jpg" id="4_5yc0n"]
+[ext_resource type="Texture2D" uid="uid://dmm2arrayrq1f" path="res://sprites/Blocos/Laranja.jpg" id="5_n3fea"]
+[ext_resource type="Texture2D" uid="uid://ok1a1vms42hd" path="res://sprites/Blocos/Rosa.jpg" id="6_di34c"]
+[ext_resource type="Texture2D" uid="uid://q213kclpnxdx" path="res://sprites/Blocos/Roxo.jpg" id="7_4ik1x"]
+[ext_resource type="Texture2D" uid="uid://bv1bkv747b6em" path="res://sprites/Blocos/Vermelho.jpg" id="8_7wfpo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8mck"]
 atlas = ExtResource("3_uhnq6")
@@ -89,7 +89,7 @@ region = Rect2(2304, 0, 128, 128)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_khx06")
+"texture": ExtResource("2_vw6u0")
 }],
 "loop": true,
 "name": &"blue",
@@ -155,11 +155,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"explosion",
-"speed": 5.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_gj34q")
+"texture": ExtResource("4_5yc0n")
 }],
 "loop": true,
 "name": &"green",
@@ -167,7 +167,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_7h2jm")
+"texture": ExtResource("5_n3fea")
 }],
 "loop": true,
 "name": &"orange",
@@ -175,7 +175,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_pqkch")
+"texture": ExtResource("6_di34c")
 }],
 "loop": true,
 "name": &"pink",
@@ -183,7 +183,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_2iqqy")
+"texture": ExtResource("7_4ik1x")
 }],
 "loop": true,
 "name": &"purple",
@@ -191,7 +191,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_dagp6")
+"texture": ExtResource("8_7wfpo")
 }],
 "loop": true,
 "name": &"red",
@@ -214,6 +214,7 @@ position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.99, 0.99)
 sprite_frames = SubResource("SpriteFrames_biajv")
 animation = &"explosion"
+frame_progress = 0.701868
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0.5)

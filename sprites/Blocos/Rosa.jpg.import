@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3mubcautp7yj"
-path="res://.godot/imported/background_principal.png-1dc9be18cc94e19a77f2546e30c58984.ctex"
+uid="uid://ok1a1vms42hd"
+path="res://.godot/imported/Rosa.jpg-e20cf2f18721feb1088cb720546fb660.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Background/background_principal.png"
-dest_files=["res://.godot/imported/background_principal.png-1dc9be18cc94e19a77f2546e30c58984.ctex"]
+source_file="res://sprites/Blocos/Rosa.jpg"
+dest_files=["res://.godot/imported/Rosa.jpg-e20cf2f18721feb1088cb720546fb660.ctex"]
 
 [params]
 
