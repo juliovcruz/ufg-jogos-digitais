@@ -7,9 +7,9 @@
 [sub_resource type="GDScript" id="GDScript_bro6r"]
 script/source = "extends Node2D
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	preload(\"res://game.tscn\")
 	pass # Replace with function body.
 
 
