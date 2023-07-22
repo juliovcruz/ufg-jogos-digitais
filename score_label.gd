@@ -12,7 +12,7 @@ func _process(delta):
 	counter_offset = Vector2((2*randf() - 1)*shake*trauma*trauma, (2*randf() - 1)*shake*trauma*trauma)
 	position += counter_offset
 	
-	text = str(int(score))
+	text = str(int(score), "Pts")
 
 func scorePlusInLabel(point):
 	score += point

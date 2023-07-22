@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmw1dxh11hun1"]
+[gd_scene load_steps=5 format=3 uid="uid://bmw1dxh11hun1"]
 
-[ext_resource type="Texture2D" uid="uid://cvevx17vtwr4f" path="res://sprites/Principal.jpg" id="1_d2tho"]
+[ext_resource type="Texture2D" uid="uid://dsxri80lwf2q" path="res://sprites/pause.jpg" id="1_1pgr8"]
 [ext_resource type="Texture2D" uid="uid://ketx2id70622" path="res://sprites/icon.jpg" id="2_6rry3"]
+[ext_resource type="FontFile" uid="uid://do0181qky3w58" path="res://sprites/Xolonium-Bold.ttf" id="2_kisb5"]
 
 [sub_resource type="GDScript" id="GDScript_styuc"]
 script/source = "extends Node2D
@@ -37,61 +38,68 @@ func _on_continue_pressed():
 script = SubResource("GDScript_styuc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(289, 127)
-scale = Vector2(0.256, 0.212)
-texture = ExtResource("1_d2tho")
+position = Vector2(3.05176e-05, 2.99999)
+scale = Vector2(2.17119, 2.14759)
+texture = ExtResource("1_1pgr8")
 centered = false
 
-[node name="TextEdit" type="TextEdit" parent="Sprite2D"]
-modulate = Color(0.0705882, 0.992157, 1, 1)
-light_mask = 0
-anchors_preset = -1
-anchor_left = 7.2998e-05
-anchor_top = 0.000197998
-anchor_right = 0.0184067
-anchor_bottom = 0.000197998
-offset_left = 550.781
-offset_top = 56.6038
-offset_right = 2550.78
-offset_bottom = 547.604
-theme_override_font_sizes/font_size = 320
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_right = 590.0
+offset_bottom = 88.0
+theme_override_colors/font_color = Color(0.443137, 0.858824, 0.996078, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 1, 1)
+theme_override_constants/shadow_offset_x = 7
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_kisb5")
+theme_override_font_sizes/font_size = 40
 text = "GAME PAUSE"
-editable = false
-metadata/_edit_use_anchors_ = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Play" type="Button" parent="Sprite2D"]
-offset_left = 867.188
-offset_top = 1485.85
-offset_right = 2117.19
-offset_bottom = 1674.85
-theme_override_font_sizes/font_size = 50
-text = "REINICIAR"
+[node name="Menu" type="Button" parent="."]
+offset_left = 256.0
+offset_top = 512.0
+offset_right = 1024.0
+offset_bottom = 619.0
+theme_override_colors/font_color = Color(0.443137, 0.858824, 0.996078, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kisb5")
+theme_override_font_sizes/font_size = 40
+text = "MAIN"
 icon = ExtResource("2_6rry3")
+flat = true
 icon_alignment = 1
-expand_icon = true
 
-[node name="Continue" type="Button" parent="Sprite2D"]
-offset_left = 871.094
-offset_top = 1268.87
-offset_right = 2121.1
-offset_bottom = 1457.87
-theme_override_font_sizes/font_size = 50
-text = "CONTINUAR"
+[node name="Continue" type="Button" parent="."]
+offset_left = 256.0
+offset_top = 256.0
+offset_right = 1024.0
+offset_bottom = 363.0
+theme_override_colors/font_color = Color(0.443137, 0.858824, 0.996078, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kisb5")
+theme_override_font_sizes/font_size = 40
+text = "CONTINUE"
 icon = ExtResource("2_6rry3")
+flat = true
 icon_alignment = 1
-expand_icon = true
 
-[node name="Menu" type="Button" parent="Sprite2D"]
-offset_left = 871.094
-offset_top = 1759.43
-offset_right = 2121.09
-offset_bottom = 1948.43
-theme_override_font_sizes/font_size = 50
-text = "MENU PRINCIPAL"
+[node name="Play" type="Button" parent="."]
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 1024.0
+offset_bottom = 491.0
+theme_override_colors/font_color = Color(0.443137, 0.858824, 0.996078, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kisb5")
+theme_override_font_sizes/font_size = 40
+text = "RESTART"
 icon = ExtResource("2_6rry3")
+flat = true
 icon_alignment = 1
-expand_icon = true
 
-[connection signal="pressed" from="Sprite2D/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Sprite2D/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="Sprite2D/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]

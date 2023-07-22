@@ -161,7 +161,7 @@ func _physics_process(delta):
 	# Adicionando gravidade
 	if not is_on_floor():
 		if !rayCastBottom.is_colliding():
-			velocity.y += gravity * delta * 0.01
+			velocity.y += gravity * delta * 0.001
 		
 		if hasBlockMovingInArea2DBottom():
 			velocity.y = 0
