@@ -102,3 +102,8 @@ func unPauseGame():
 	pauseTheGameSignal.emit()
 	blocksAllowed = !blocksAllowed
 	get_node("Button").set_visible(true)
+
+func _on_timer_tutorial_timeout():
+	get_node("TouchScreenButtonLeft/Sprite2D").set_visible(false)
+	get_node("TouchScreenButtonRight/Sprite2D").set_visible(false)
+	get_node("TouchScreenButtonJump/Sprite2D").set_visible(false)

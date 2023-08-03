@@ -19,7 +19,6 @@ func _process(delta):
 	pass
 
 func _on_play_pressed():
-	print(\"test\")
 	get_tree().change_scene_to_file(\"res://game.tscn\")
 	pass # Replace with function body.
 
