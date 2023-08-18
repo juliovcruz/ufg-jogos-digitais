@@ -4,6 +4,9 @@ class_name Player
 @onready var rayCastRight = $RayCastRight
 @onready var rayCastLeft = $RayCastLeft
 
+@onready var touchLeft = $TouchScreenButtonLeft
+@onready var touchRight = $TouchScreenButtonRight
+
 var SCORE = 1
 
 const SPEED = 400.0
@@ -51,6 +54,7 @@ func _physics_process(delta):
 			direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		
 		if direction:
+			print(direction)
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)

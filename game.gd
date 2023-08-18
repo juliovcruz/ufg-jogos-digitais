@@ -79,6 +79,7 @@ func gameOver():
 	add_child(new_scene_instantiate)
 	
 	new_scene_instantiate.killGame.connect(killGame.bind())
+	buttonsSetVisible(false)
 
 func killGame():
 	queue_free()
@@ -88,6 +89,7 @@ func pauseGame():
 	blocksAllowed = !blocksAllowed
 	
 	get_node("Button").set_visible(false)
+	buttonsSetVisible(false)
 	
 	var new_scene = load("res://game_pause.tscn")
 	var new_scene_instantiate = new_scene.instantiate()
@@ -102,8 +104,16 @@ func unPauseGame():
 	pauseTheGameSignal.emit()
 	blocksAllowed = !blocksAllowed
 	get_node("Button").set_visible(true)
+	buttonsSetVisible(true)
 
 func _on_timer_tutorial_timeout():
-	get_node("TouchScreenButtonLeft/Sprite2D").set_visible(false)
-	get_node("TouchScreenButtonRight/Sprite2D").set_visible(false)
-	get_node("TouchScreenButtonJump/Sprite2D").set_visible(false)
+	pass
+	#get_node("TouchScreenButtonLeft/Sprite2D").set_visible(false)
+	#get_node("TouchScreenButtonRight/Sprite2D").set_visible(false)
+	#get_node("TouchScreenButtonJump/Sprite2D").set_visible(false)
+
+func buttonsSetVisible(visible):
+	get_node("TouchScreenButtonLeft/Sprite2D").set_visible(visible)
+	get_node("TouchScreenButtonRight/Sprite2D").set_visible(visible)
+	get_node("TouchScreenButtonJump/Sprite2D").set_visible(visible)
+

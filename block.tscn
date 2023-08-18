@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://block.gd" id="1_dg7dk"]
 [ext_resource type="Texture2D" uid="uid://0xmgtkl4cdh3" path="res://sprites/Blocos/Azul-fotor.jpg" id="3_71150"]
-[ext_resource type="Texture2D" uid="uid://dowgphqpdqry6" path="res://sprites/Blocos/Verde.jpg" id="3_gj34q"]
-[ext_resource type="Texture2D" uid="uid://xvi2lwssg3o7" path="res://sprites/Blocos/Azul.jpg" id="3_khx06"]
-[ext_resource type="Texture2D" uid="uid://dr5gef3f21t1m" path="res://sprites/Blocos/expl.png" id="4_3ejui"]
-[ext_resource type="Texture2D" uid="uid://ok1a1vms42hd" path="res://sprites/Blocos/Rosa.jpg" id="5_pqkch"]
-[ext_resource type="Texture2D" uid="uid://q213kclpnxdx" path="res://sprites/Blocos/Roxo.jpg" id="6_2iqqy"]
-[ext_resource type="Texture2D" uid="uid://bv1bkv747b6em" path="res://sprites/Blocos/Vermelho.jpg" id="6_dagp6"]
+[ext_resource type="Texture2D" uid="uid://dowgphqpdqry6" path="res://sprites/Verde.jpg" id="3_gj34q"]
+[ext_resource type="Texture2D" uid="uid://xvi2lwssg3o7" path="res://sprites/Azul.jpg" id="3_khx06"]
+[ext_resource type="Texture2D" uid="uid://dr5gef3f21t1m" path="res://sprites/expl.png" id="4_3ejui"]
+[ext_resource type="Texture2D" uid="uid://ok1a1vms42hd" path="res://sprites/Rosa.jpg" id="5_pqkch"]
+[ext_resource type="Texture2D" uid="uid://q213kclpnxdx" path="res://sprites/Roxo.jpg" id="6_2iqqy"]
+[ext_resource type="Texture2D" uid="uid://bv1bkv747b6em" path="res://sprites/Vermelho.jpg" id="6_dagp6"]
 [ext_resource type="Texture2D" uid="uid://c80kq0vo57l8f" path="res://sprites/Blocos/Verde-fotor.jpg" id="6_oknl5"]
-[ext_resource type="Texture2D" uid="uid://dmm2arrayrq1f" path="res://sprites/Blocos/Laranja.jpg" id="7_7h2jm"]
+[ext_resource type="Texture2D" uid="uid://dmm2arrayrq1f" path="res://sprites/Laranja.jpg" id="7_7h2jm"]
 [ext_resource type="Texture2D" uid="uid://gjt6ygxuwcvj" path="res://sprites/Blocos/Laranja-fotor.jpg" id="8_7ma2b"]
 [ext_resource type="Texture2D" uid="uid://de4pxs2yj7or5" path="res://sprites/Blocos/Rosa-fotor.jpg" id="10_kdslq"]
 [ext_resource type="Texture2D" uid="uid://cacnfjm65tn83" path="res://sprites/Blocos/Roxo-fotor.jpg" id="12_ld5kl"]
@@ -229,7 +229,7 @@ size = Vector2(125, 125)
 size = Vector2(23.6, 9)
 
 [node name="block" type="CharacterBody2D"]
-visibility_layer = 2
+visibility_layer = 4
 safe_margin = 0.09
 script = ExtResource("1_dg7dk")
 

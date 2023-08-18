@@ -455,6 +455,7 @@ animations = [{
 size = Vector2(20, 684)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_phn3q"]
+size = Vector2(18, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60503"]
 size = Vector2(1280, 23)
@@ -566,33 +567,37 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="TouchScreenButtonLeft" type="TouchScreenButton" parent="."]
-position = Vector2(168, 496)
-scale = Vector2(15, 15)
+position = Vector2(91, 629)
+scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_phn3q")
 action = "move_left"
 
 [node name="Sprite2D" type="Sprite2D" parent="TouchScreenButtonLeft"]
+z_index = 1
+position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_0lpn1")
 
 [node name="TouchScreenButtonJump" type="TouchScreenButton" parent="."]
-position = Vector2(1032, 448)
-scale = Vector2(20, 20)
+position = Vector2(1173, 614)
+scale = Vector2(12, 12)
 shape = SubResource("RectangleShape2D_phn3q")
 action = "move_jump"
 
 [node name="Sprite2D" type="Sprite2D" parent="TouchScreenButtonJump"]
+z_index = 1
 position = Vector2(1.52588e-05, 0)
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("12_tqpbm")
 
 [node name="TouchScreenButtonRight" type="TouchScreenButton" parent="."]
-position = Vector2(488, 496)
-scale = Vector2(15, 15)
+position = Vector2(276, 630)
+scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_phn3q")
 action = "move_right"
 
 [node name="Sprite2D" type="Sprite2D" parent="TouchScreenButtonRight"]
+z_index = 1
 position = Vector2(-3.05176e-05, 0)
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("13_k6e8s")
