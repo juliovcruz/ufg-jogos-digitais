@@ -31,6 +31,14 @@ var difficulty = 0
 
 func _ready():
 	pauseTheGameSignal.connect(get_node("Player").pausePlayer.bind())
+	
+	var y = Singleton.get_audio()
+	if y == true:
+		for node in get_tree().get_nodes_in_group("Audio"):
+			node.set_volume_db(0)
+	else:
+		for node in get_tree().get_nodes_in_group("Audio"):
+			node.set_volume_db(-100)
 
 func _process(delta):
 	timer += delta
@@ -59,15 +67,16 @@ func scorePlus(point):
 	
 	var TimerNode = get_node("Timer")
 	
-	if score > 10 && difficulty == 0:
+	if score > 30 && difficulty == 0:
 		TimerNode.wait_time = 2.25
 		difficulty = 1
-	elif score > 20 && difficulty == 1:
+	elif score > 60 && difficulty == 1:
 		TimerNode.wait_time = 2
 		difficulty = 2
-	elif score > 30 && difficulty == 2:
+	elif score > 90 && difficulty == 2:
 		TimerNode.wait_time = 1.5
 		difficulty = 3
+		
 
 func gameOver():	
 	get_node("Button").set_visible(false)
@@ -79,6 +88,7 @@ func gameOver():
 	add_child(new_scene_instantiate)
 	
 	new_scene_instantiate.killGame.connect(killGame.bind())
+	buttonsSetVisible(false)
 
 func killGame():
 	queue_free()
@@ -88,6 +98,7 @@ func pauseGame():
 	blocksAllowed = !blocksAllowed
 	
 	get_node("Button").set_visible(false)
+	buttonsSetVisible(false)
 	
 	var new_scene = load("res://game_pause.tscn")
 	var new_scene_instantiate = new_scene.instantiate()
@@ -102,3 +113,16 @@ func unPauseGame():
 	pauseTheGameSignal.emit()
 	blocksAllowed = !blocksAllowed
 	get_node("Button").set_visible(true)
+	buttonsSetVisible(true)
+
+func _on_timer_tutorial_timeout():
+	pass
+	#get_node("TouchScreenButtonLeft/Sprite2D").set_visible(false)
+	#get_node("TouchScreenButtonRight/Sprite2D").set_visible(false)
+	#get_node("TouchScreenButtonJump/Sprite2D").set_visible(false)
+
+func buttonsSetVisible(visible):
+	get_node("TouchScreenButtonLeft/Sprite2D").set_visible(visible)
+	get_node("TouchScreenButtonRight/Sprite2D").set_visible(visible)
+	get_node("TouchScreenButtonJump/Sprite2D").set_visible(visible)
+

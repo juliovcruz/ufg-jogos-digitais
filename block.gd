@@ -61,7 +61,7 @@ func _ready():
 	# set_collision_layer_value(spawn_x.find(position.x) + 1, true)
 	
 	# Define a cor do bloco
-	color = randi_range(0, 1)
+	color = randi_range(0, difficulty())
 	match color:
 		0:
 			$AnimatedSprite2D.play("red")
@@ -361,3 +361,15 @@ func canExplode():
 	if !is_on_floor():
 		return false
 	return true
+
+func difficulty():
+	var x: int
+	var y = Singleton.get_nivel()
+	if y == 3:
+		x = y
+	elif y == 5:
+		x = y
+	else:
+		x = 1
+		
+	return x

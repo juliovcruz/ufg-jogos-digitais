@@ -10,7 +10,16 @@ script/source = "extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	preload(\"res://options.tscn\")
 	preload(\"res://game.tscn\")
+	
+	var y = Singleton.get_audio()
+	if y == true:
+		for node in get_tree().get_nodes_in_group(\"Audio\"):
+			node.set_volume_db(0)
+	else:
+		for node in get_tree().get_nodes_in_group(\"Audio\"):
+			node.set_volume_db(-100)
 	pass # Replace with function body.
 
 
@@ -19,7 +28,6 @@ func _process(delta):
 	pass
 
 func _on_play_pressed():
-	print(\"test\")
 	get_tree().change_scene_to_file(\"res://game.tscn\")
 	pass # Replace with function body.
 
@@ -29,6 +37,11 @@ func _on_quit_pressed():
 
 func _on_music_finished():
 	get_node(\"AudioStreamPlayer2D\").play()
+
+
+func _on_options_pressed():
+	get_tree().change_scene_to_file(\"res://options.tscn\")
+	pass # Replace with function body.
 "
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jwn81"]
@@ -117,11 +130,11 @@ icon = ExtResource("2_22ft8")
 flat = true
 icon_alignment = 1
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." groups=["Audio"]]
 stream = ExtResource("3_rhosa")
 autoplay = true
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_music_finished"]

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://brng2pm6iu5lq"]
+[gd_scene load_steps=7 format=3 uid="uid://brng2pm6iu5lq"]
 
 [ext_resource type="Texture2D" uid="uid://r2s0fhmog0yt" path="res://sprites/gameover.jpg" id="1_u2doc"]
 [ext_resource type="Texture2D" uid="uid://ketx2id70622" path="res://sprites/icon.jpg" id="2_h8edg"]
 [ext_resource type="FontFile" uid="uid://do0181qky3w58" path="res://sprites/Xolonium-Bold.ttf" id="2_wi43r"]
+[ext_resource type="Script" path="res://record.gd" id="4_q675o"]
+[ext_resource type="Script" path="res://ScoreLabel2.gd" id="5_5f0vb"]
 
 [sub_resource type="GDScript" id="GDScript_styuc"]
 script/source = "extends Node2D
@@ -79,6 +81,68 @@ text = "MAIN"
 icon = ExtResource("2_h8edg")
 flat = true
 icon_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 920.0
+offset_top = 560.0
+offset_right = 1240.0
+offset_bottom = 624.0
+theme_override_colors/font_color = Color(0.94902, 0, 1, 1)
+theme_override_fonts/font = ExtResource("2_wi43r")
+theme_override_font_sizes/font_size = 40
+text = "0 Pts"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_q675o")
+
+[node name="Label" type="Label" parent="ScoreLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.0
+anchor_bottom = -1.0
+offset_right = 320.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0.443137, 0.858824, 0.996078, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 1, 1)
+theme_override_constants/shadow_outline_size = 20
+theme_override_fonts/font = ExtResource("2_wi43r")
+theme_override_font_sizes/font_size = 40
+text = "RECORD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel2" type="Label" parent="."]
+offset_left = 912.0
+offset_top = 624.0
+offset_right = 1232.0
+offset_bottom = 688.0
+theme_override_colors/font_color = Color(0.94902, 0, 1, 1)
+theme_override_fonts/font = ExtResource("2_wi43r")
+theme_override_font_sizes/font_size = 20
+text = "0 Pts"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_5f0vb")
+
+[node name="Label" type="Label" parent="ScoreLabel2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.0
+anchor_bottom = -1.0
+offset_left = -304.0
+offset_top = 64.0
+offset_right = 87.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.443137, 0.858824, 0.996078, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 1, 1)
+theme_override_constants/shadow_outline_size = 20
+theme_override_fonts/font = ExtResource("2_wi43r")
+theme_override_font_sizes/font_size = 20
+text = "current score
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]

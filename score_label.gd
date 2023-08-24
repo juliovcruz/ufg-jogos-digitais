@@ -11,9 +11,12 @@ func _process(delta):
 	trauma = min(max(trauma - delta*1.5, 0), 1)
 	counter_offset = Vector2((2*randf() - 1)*shake*trauma*trauma, (2*randf() - 1)*shake*trauma*trauma)
 	position += counter_offset
-	
+
 	text = str(int(score), "Pts")
+	print(score)
 
 func scorePlusInLabel(point):
 	score += point
 	trauma += 0.9
+	
+	Singleton.set_score(score)

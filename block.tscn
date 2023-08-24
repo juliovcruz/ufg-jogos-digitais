@@ -229,7 +229,7 @@ size = Vector2(125, 125)
 size = Vector2(23.6, 9)
 
 [node name="block" type="CharacterBody2D"]
-visibility_layer = 2
+visibility_layer = 4
 safe_margin = 0.09
 script = ExtResource("1_dg7dk")
 

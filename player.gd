@@ -4,6 +4,9 @@ class_name Player
 @onready var rayCastRight = $RayCastRight
 @onready var rayCastLeft = $RayCastLeft
 
+@onready var touchLeft = $TouchScreenButtonLeft
+@onready var touchRight = $TouchScreenButtonRight
+
 var SCORE = 1
 
 const SPEED = 400.0
@@ -28,29 +31,30 @@ func _physics_process(delta):
 	
 	if canMove:
 		## Altera a direção dos sprites
-		if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right_jump"):
+		if Input.is_action_pressed("move_right"):
 			$AnimatedSprite2D.flip_h = false
-		elif Input.is_action_pressed("move_left") || Input.is_action_pressed("move_left_jump"):
+		elif Input.is_action_pressed("move_left"):
 			$AnimatedSprite2D.flip_h = true
 		
 		# Sprites de acordo com a movimentação e pulo
-		if (Input.is_action_just_pressed("move_up") || Input.is_action_pressed("move_left_jump") || Input.is_action_pressed("move_right_jump")) and is_on_floor():
+		if (Input.is_action_just_pressed("move_up") || Input.is_action_pressed("move_jump")) and is_on_floor():
 			$AnimatedSprite2D.play("jump")
 			velocity.y = JUMP_VELOCITY
-		elif (Input.is_action_pressed("move_right") || Input.is_action_pressed("move_right_jump")) and is_on_floor():
+		elif (Input.is_action_pressed("move_right")) and is_on_floor():
 			$AnimatedSprite2D.play("move")
 			
-		elif (Input.is_action_pressed("move_left") || Input.is_action_pressed("move_left_jump")) and is_on_floor():
+		elif (Input.is_action_pressed("move_left")) and is_on_floor():
 			$AnimatedSprite2D.play("move")
 		elif is_on_floor():
 			$AnimatedSprite2D.play("idle")
 
 		# Movimento para direita e esquerda
 		var direction = Input.get_axis("move_left", "move_right")
-		if Input.is_action_pressed("move_left_jump") || Input.is_action_pressed("move_right_jump"): 
-			direction = Input.get_axis("move_left_jump", "move_right_jump")
+		if Input.is_action_pressed("move_jump"):
+			direction = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		
 		if direction:
+			print(direction)
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
